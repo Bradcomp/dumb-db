@@ -1,0 +1,11 @@
+{
+  "name": "dumb-db",
+  "version": "0.1.0",
+  "description": "Just a dumb datastore. No guarantees. Don't use in production",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "author": "Bradcomp",
+  "license": "WTFPL"
+}
