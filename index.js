@@ -7,21 +7,24 @@ const createDb = fname => fs.writeFile(fname, JSON.stringify({}), err => {
 
 const db = {
   _values: {},
-  _writeFailures: 0,
   database: `${__dirname}/db.json`,
   get(key) {
     return this._values[key];
   },
   set(key, value) {
     this._values[key] = value;
-    /* fire this off async */
-    fs.writeFile(this.database, JSON.stringify(this._values), err => {
-        if (err) throw err;
-    });
+    this.persist();
     return value;
   },
   del(key){
     delete this._values[key];
+    this.persist();
+    return true;
+  },
+  persist() {
+      fs.writeFile(this.database, JSON.stringify(this._values), err => {
+          if (err) throw err;
+      });
   },
   toObject() {
       //Using Object.assign to create a copy
