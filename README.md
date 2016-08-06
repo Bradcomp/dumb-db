@@ -6,7 +6,7 @@ It makes no guarantees on the integrity of your data.
 
 Use at your own risk.
 
-Not on npm... yet
+`npm i dumb-db`
 
 ```JavaScript
 
