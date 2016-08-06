@@ -24,7 +24,7 @@ const db = {
   clear() {
      this._values = {};
      this.persist();
-     return true; 
+     return true;
   },
   persist() {
       const values = JSON.stringify(this._values);
@@ -37,15 +37,14 @@ const db = {
 
   },
   load() {
-      this.registerOp(() => new Promise((resolve, reject) => {
-          fs.readFile(this.database, (err, result) => {
-              if (err && err.code === 'ENOENT') return resolve();
-              if (err) return reject(err);
-              this._values = JSON.parse(result);
-              return resolve();
-          });
-      }));
-
+      //Load uses readFileSync to ensure that, once loaded, the
+      //Results are immediately avaliable.
+      try {
+          const data = fs.readFileSync(this.database);
+          this._values = JSON.parse(data);
+      }  catch (e) {
+          if (e.code !== 'ENOENT') throw e;
+      }
   },
   registerOp(p) {
       this._opLog = this._opLog
