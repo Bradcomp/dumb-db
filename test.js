@@ -20,5 +20,8 @@ db._values = {};
 db.load();
 setTimeout(() => {
     assert.deepEqual(db.toObject(), {a: 'hello', b: 35}, 'can load from disk');
+    db.clear();
+    assert.deepEqual(db.toObject(), {});
+    console.log('Tests passed!');
     process.exit(0);
 }, 150)

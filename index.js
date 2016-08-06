@@ -17,21 +17,24 @@ const db = {
     this.persist();
     return true;
   },
-  persist() {
-      const values = JSON.stringify(this._values);
-      this.registerOp(() => new Promise((resolve, reject) => {
-          fs.truncate(this.database, 0, () => {
-              fs.writeFile(this.database, values, err => {
-                  if (err) return reject(err);
-                  resolve()
-              });
-          });
-      }));
-
-  },
   toObject() {
       //Using Object.assign to create a copy
       return Object.assign({}, this._values);
+  },
+  clear() {
+     this._values = {};
+     this.persist();
+     return true; 
+  },
+  persist() {
+      const values = JSON.stringify(this._values);
+      this.registerOp(() => new Promise((resolve, reject) => {
+          fs.writeFile(this.database, values, err => {
+              if (err) return reject(err);
+              resolve();
+          });
+      }));
+
   },
   load() {
       this.registerOp(() => new Promise((resolve, reject) => {
