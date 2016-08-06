@@ -6,7 +6,7 @@ It makes no guarantees on the integrity of your data.
 
 Use at your own risk.
 
-`npm i dumb-db`
+`npm i dumb-db`  - Note: No longer on NPM, please don't use this.
 
 ```JavaScript
 
