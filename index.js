@@ -51,6 +51,9 @@ const db = {
         .then(p)
         .catch(e => {setTimeout(() => { throw e; }, 0)})
   },
+  hello() {
+      return 'Hello, world!';
+  },
   _opLog: Promise.resolve()
 }
 
