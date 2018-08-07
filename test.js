@@ -17,8 +17,11 @@ assert(db.get('stuff') === undefined, 'Can delete things');
 
 //Now, we manually clear out the values for testing load.
 db._values = {};
-db.load();
-assert.deepEqual(db.toObject(), {a: 'hello', b: 35}, 'can load from disk');
-db.clear();
-assert.deepEqual(db.toObject(), {});
-console.log('Tests passed!');
+db._opLog.then(() => {
+  db.load();
+  assert.deepEqual(db.toObject(), {a: 'hello', b: 35}, 'can load from disk');
+  db.clear();
+  assert.deepEqual(db.toObject(), {});
+  console.log('Tests passed!');
+})
+
